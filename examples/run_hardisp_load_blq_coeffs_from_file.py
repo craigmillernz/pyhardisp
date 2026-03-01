@@ -1,4 +1,4 @@
-# Copyright (c) 2026 Earth Sciences New Zealand.
+# Copyright (c) 2026 Craig Miller.
 
 #!/usr/bin/env python3
 """Test the new read_BLQ_from_file function"""

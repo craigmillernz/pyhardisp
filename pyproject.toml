@@ -60,7 +60,7 @@ python_files = ["test_*.py", "tests.py"]
 
 [tool.burocrata]
 notice = '''
-# Copyright (c) 2026 Earth Sciences New Zealand.
+# Copyright (c) 2026 Craig Miller.
 '''
 exclude = ["__init__.py"]
 

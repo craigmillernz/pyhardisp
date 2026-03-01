@@ -1,4 +1,4 @@
-# Copyright (c) 2026 Earth Sciences New Zealand.
+# Copyright (c) 2026 Craig Miller.
 
 import pyhardisp
 import numpy as np
