@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=77.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyhardisp"
+version = "0.2.0"
+description = "Ocean loading tidal displacement calculator - Python conversion of IERS HARDISP Fortran program"
+readme = "README_PYTHON_CONVERSION.md"
+requires-python = ">=3.8"
+license = "LicenseRef-IERS"
+license-files = ["LICENSE_IERS.txt"]
+authors = [
+    {name = "IERS Conventions"},
+    {name = "Python Conversion - Craig Miller"}
+]
+keywords = ["HARDISP", "ocean-loading", "tidal", "displacement", "geodesy", "IERS"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+dependencies = [
+    "numpy>=1.19.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=4.0",
+    "ruff",
+]
+
+[project.urls]
+Homepage = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
+Documentation = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
+Repository = "https://github.com/yourusername/hardisp"
+Issues = "https://github.com/yourusername/hardisp/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyhardisp*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "tests.py"]
+
+[tool.burocrata]
+notice = '''
+# Copyright (c) 2026 Earth Sciences New Zealand.
+'''
+exclude = ["__init__.py"]
+

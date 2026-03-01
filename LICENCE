@@ -1,0 +1,11 @@
+This software is a Python translation and modification of the
+IERS Conventions software (Copyright © 2008 IERS Conventions Center).
+
+The original IERS Conventions Software License is reproduced in
+LICENSE_IERS.txt and governs this derived work.
+
+Modifications and Python translation:
+Copyright (C) 2026 [Craig Miller]
+
+This project is distributed under the terms of the
+IERS Conventions Software License.
