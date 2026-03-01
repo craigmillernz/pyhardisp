@@ -2,9 +2,9 @@
 
 ## 📋 What is HARDISP vs pyhardisp?
 
-**HARDISP** computes ocean loading tidal effects for geodetic stations. It processes coefficients provided by ocean loading providers (such as the Bos-Scherneck service) to compute either:
+**HARDISP** computes ocean loading tidal effects for geodetic stations. It processes coefficients provided by ocean loading providers ([such as the Bos-Scherneck service](https://barre.oso.chalmers.se/loading/l.php)) to compute either:
 - **Displacements** (vertical and horizontal) when displacement-type coefficients are provided
-- **Gravity effects** (gravity and tilt) when gravity-type coefficients are provided
+- **Gravity effects** (gravity (nm/s^2) and tilt(nrads)) when gravity-type coefficients are provided
 
 It's part of the IERS Conventions 2010 recommended models for correcting space geodesy observations (GPS, SLR, VLBI, superconducting gravimeters).
 
@@ -12,17 +12,15 @@ It's part of the IERS Conventions 2010 recommended models for correcting space g
 
 ## 📂 Files in This Directory
 
-### Python Module (Production Ready)
-- **`core.py`** ⭐ **[MAIN MODULE - USE THIS]**
+### Python Module
+- **`core.py`** 
   - Complete Python implementation of HARDISP
-  - ~500 lines of production-quality code
-  - Fully tested and validated
-  - Ready to import and use immediately
+  - Vectorised routines for speed enhancement
 
 ### Documentation
 - **`README_PYTHON_CONVERSION.md`** - Complete user guide with examples
 - **`CONVERSION_SUMMARY.md`** - Technical overview and specifications
-- **`INDEX.md`** - This file
+- **`README.md`** - This file
 
 ### Original Fortran Code from IERS (Reference Only)
 - `HARDISP.F` - Main program
@@ -136,20 +134,9 @@ For detailed information, see:
 - **NumPy integration** for high performance
 - **Object-oriented design** for ease of use
 
-## ⚡ Performance
-
-| Task | Time |
-|------|------|
-| Single epoch | ~1 ms |
-| 24 hourly epochs | ~10 ms |
-| 86,400 second epochs (full day) | ~400 ms |
-
 ## ✅ Validation
 
-All results match original Fortran code within machine precision:
-- Typical difference: < 1 nanometer
-- Test cases: Onsala & Reykjavik stations (from HARDISP.F)
-- All utility functions: 100% match
+All results match original Fortran code:
 
 ![Conparison of ocean loading from Quicktide Pro, gtools (using hardisp_x64.exe) and pyhardisp](./ocean_loading_comparison.png)
 
