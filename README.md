@@ -138,6 +138,8 @@ For detailed information, see:
 
 All results match original Fortran code:
 
+Comparion with Quicktide Pro (QTP) and hardisp_x64.exe
+
 ![Conparison of ocean loading from Quicktide Pro, gtools (using hardisp_x64.exe) and pyhardisp](./ocean_loading_comparison.png)
 
 ## 🎓 Understanding the Input Data
