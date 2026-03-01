@@ -6,7 +6,7 @@ This document describes the Python conversion of the **HARDISP** (Harmonic Displ
 
 ## What is HARDISP?
 
-HARDISP is a sophisticated scientific program developed by the International Earth Rotation and Reference Systems Service (IERS) for calculating tidal ocean loading effects at geodetic stations. Depending on the coefficients provided by the ocean loading provider, it computes either:
+HARDISP is a scientific program developed by the International Earth Rotation and Reference Systems Service (IERS) for calculating tidal ocean loading effects at geodetic stations. Depending on the coefficients provided by the ocean loading provider, it computes either:
 - **Tidal displacements** (vertical, horizontal components) - when displacement coefficients are provided
 - **Tidal gravity effects** (gravity disturbances) - when gravity-type coefficients are provided
 
@@ -132,28 +132,24 @@ print(f"West: {dw}")
 import pyhardisp
 import numpy as np
 
-# Ocean loading data (from http://www.oso.chalmers.se/~loading/)
-amplitudes = [
-    [0.00352, 0.00123, 0.00080, 0.00032, 0.00187, 0.00112, 
-     0.00063, 0.00003, 0.00082, 0.00044, 0.00037],  # Vertical
-    [0.00144, 0.00035, 0.00035, 0.00008, 0.00053, 0.00049, 
-     0.00018, 0.00009, 0.00012, 0.00005, 0.00006],  # East
-    [0.00086, 0.00023, 0.00023, 0.00006, 0.00029, 0.00028, 
-     0.00010, 0.00007, 0.00004, 0.00002, 0.00001],  # North
-]
-
-phases = [
-    [-64.7, -52.0, -96.2, -55.2, -58.8, -151.4, -65.6, -138.1, 8.4, 5.2, 2.1],
-    [85.5, 114.5, 56.5, 113.6, 99.4, 19.1, 94.1, -10.4, -167.4, -170.0, -177.7],
-    [109.5, 147.0, 92.7, 148.8, 50.5, -55.1, 36.4, -170.4, -15.0, 2.3, 5.2],
-]
-
-# Create and configure computer
+# Create computer instance
 computer = pyhardisp.HardispComputer()
-# Load displacement-type coefficients
-computer.read_blq_format(amplitudes, phases)
 
-# Compute 24 hourly ocean loading effects starting from 2009-06-25 01:10:45
+# Load BLQ ocean loading coefficients
+amplitudes = [
+    [45.96, 10.98, 6.94, 3.07, 6.00, 1.57, 1.98, 0.91, 1.58, 0.73, 0.41],  # Vertical
+    [99.00, 14.68, 21.49, 4.16, 2.67, 2.80, 0.86, 1.03, 0.02, 0.00, 0.01],  # East
+    [38.30, 11.46, 8.92, 3.17, 7.47, 4.96, 2.46, 0.97, 1.06, 0.63, 0.52],  # North
+]
+phases = [
+    [53.3, 137.3, 22.4, 135.1, -171.3, 21.5, -170.7, 42.9, -3.6, -8.3, -4.3],
+    [140.1, 174.5, 123.5, 159.1, 167.5, 93.9, 168.8, 65.9, -47.8, -49.7, 15.5],
+    [-109.9, -78.7, -133.4, -85.9, 28.6, 12.2, 28.1, 16.0, 14.1, 8.0, 1.5],
+]
+
+computer.read_blq_format(amplitudes, phases, units="nm/s^2")
+
+# Compute 24 hourly displacements
 dz, ds, dw = computer.compute_ocean_loading(
     year=2009, month=6, day=25,
     hour=1, minute=10, second=45,
@@ -161,9 +157,9 @@ dz, ds, dw = computer.compute_ocean_loading(
     sample_interval=3600.0
 )
 
-# Print results
-for i in range(24):
-    print(f"Hour {i:2d}: dU={dz[i]:9.6f}  dS={ds[i]:9.6f}  dW={dw[i]:9.6f}")
+print("Vertical gravity (nm/s^2):", dz)
+print("South tilt (nrad):   ", ds)
+print("West tilt (nrad):    ", dw)
 ```
 
 ### Example 2: High-Rate Analysis
@@ -238,22 +234,109 @@ This requires only 2-3 operations per harmonic per time point, making it orders 
 
 4. **Object-Oriented**: The Python version uses a class-based interface (`HardispComputer`) rather than standalone FORTRAN procedures.
 
-## Performance
+## Original Fortran Files (Reference)
 
-Typical execution times (on modern hardware):
-- Single epoch: ~1 ms
-- 24 hourly epochs: ~10 ms
-- 86,400 second epochs (1 Hz, 24 hours): ~400 ms
+The Python code was converted from these 13 Fortran files:
 
-The recursion algorithm and numpy vectorization provide excellent performance for large batch computations.
+1. `HARDISP.F` (465 lines) - Main program
+2. `ADMINT.F` (449 lines) - Ocean loading interpolation
+3. `RECURS.F` (180 lines) - Recursive harmonic evaluation
+4. `TDFRPH.F` (281 lines) - Frequency and phase calculation
+5. `SPLINE.F` (215 lines) - Spline setup
+6. `EVAL.F` (197 lines) - Spline evaluation
+7. `TOYMD.F` (160 lines) - Date conversion
+8. `MDAY.F` (155 lines) - Month/day calculation
+9. `LEAP.F` (154 lines) - Leap year check
+10. `JULDAT.F` (159 lines) - Julian date
+11. `SHELLS.F` (210 lines) - Shell sort
+12. `ETUTC.F` (284 lines) - ET-UTC calculation
+13. `TOYS.F` - (not in workspace but referenced)
 
-## Validation
 
-The Python module produces results within machine precision of the original Fortran implementation. Test cases from HARDISP.F are included and verified:
+## Function Name Mapping (Original Fortran → New Python)
 
-- Onsala and Reykjavik station examples from HARDISP.F comments
-- All utility functions match expected outputs
-- Maximum differences vs. Fortran: < 1 nanometer
+| Original Fortran | New Python Name | Purpose |
+|------------------|-----------------|----------|
+| LEAP | is_leap_year | Check leap year status |
+| MDAY | days_before_month | Days before month start |
+| JULDAT | julian_date | Convert to Julian Day Number |
+| TOYMD | doy_to_ymd | Convert day-of-year to month/day |
+| ETUTC | earth_time_offset_seconds | ET-UTC offset calculation |
+| SPLINE | cublic_spline | Compute cubic spline coefficients |
+| EVAL | spline_eval | Evaluate spline at point |
+| — | spline_eval_batch | Evaluate spline at multiple points (vectorized) |
+| SET_TIDAL_DATE | calculate_tidal_arguments | Initialize tidal calculations |
+| TDFRPH | tidal_frequency_and_phase | Get frequency and phase |
+| — | tidal_frequency_and_phase_batch | Get frequencies/phases for multiple constituents (vectorized) |
+| RECURS | recursion | Recursive harmonic evaluation |
+| ADMINT | admittance | Admittance interpolation |
+| SHELLS | pyshells | Shell sort array indices |
+| int_div (helper) | fortran_int_divide | Fortran-style integer division |
+
+## Features Implemented
+
+### Complete Conversion
+- [x] All 342 tidal constituents support
+- [x] Recursive harmonic evaluation (efficient)
+- [x] Cubic spline interpolation
+- [x] Tidal admittance calculation
+- [x] BLQ format input/output
+- [x] Julian date calculations
+- [x] ET-UTC offset (with leap seconds through 2017)
+- [x] Doodson number computations
+- [x] Delaunay argument calculations
+
+### Additional Features
+- [x] Object-oriented design with HardispComputer class
+- [x] NumPy integration for high performance
+- [x] Comprehensive error handling
+- [x] Detailed documentation and docstrings
+- [x] Test cases and validation
+- [x] Performance optimizations
+
+## Core Components Converted
+
+### 1. Date/Time Functions (7 functions)
+```
+✓ is_leap_year(year) - Check leap year
+✓ days_before_month(year, month) - Days before month start
+✓ julian_date(year, month, day) - Convert to Julian date
+✓ doy_to_ymd(year, day_of_year) - Convert to month/day
+✓ earth_time_offset_seconds(year) - ET-UTC offset calculation
+```
+
+### 2. Spline Interpolation (3 functions)
+```
+✓ cublic_spline(x, u) - Compute cubic spline coefficients
+✓ spline_eval(y, x, u, s) - Evaluate spline at point
+✓ spline_eval_batch(y_arr, x, u, s) - Evaluate spline at multiple points (vectorized)
+```
+
+### 3. Tidal Frequency Calculations (3 functions)
+```
+✓ calculate_tidal_arguments(year, day, h, m, s) - Initialize tidal calculations
+✓ tidal_frequency_and_phase(doodson_number) - Get frequency and phase from Doodson number
+✓ tidal_frequency_and_phase_batch(doodson_array) - Get frequencies and phases for multiple constituents (vectorized)
+```
+
+### 4. Harmonic Recursion (1 function)
+```
+✓ recursion(n, hc, nf, om) - Efficient recursive harmonic evaluation
+```
+
+### 5. Utility Functions (2 functions)
+```
+✓ pyshells(x) - Sort array with indices (Shell sort)
+✓ fortran_int_divide(a, b) - Fortran-style integer division
+```
+
+### 6. Main Class: HardispComputer
+```
+✓ read_blq_format(amp, phase) - Load ocean loading coefficients
+✓ compute_ocean_loading(...) - Main computation engine
+```
+
+
 
 ## References
 

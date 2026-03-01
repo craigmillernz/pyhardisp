@@ -10,6 +10,20 @@ It's part of the IERS Conventions 2010 recommended models for correcting space g
 
 **pyhardisp** is a python conversion of the original HARDISP fortran code from IERS (available in the src dir).
 
+
+## Installation & Requirements
+
+```bash
+# Requires:
+- Python 3.6+
+- NumPy (any recent version)
+
+# Installation:
+1. clone repo to your local machine
+2. pip install .
+
+```
+
 ## 📂 Files in This Directory
 
 ### Python Module
