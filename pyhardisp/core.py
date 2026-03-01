@@ -411,8 +411,6 @@ def calculate_tidal_arguments(
     year: int, day_of_year: int, hour: int = 0, minute: int = 0, second: int = 0
 ) -> None:
     """Precompute Doodson variables for tidal calculations."""
-    global _tidal
-
     y, m, d = doy_to_ymd(year, day_of_year)
     jd = julian_date(year, m, d)
     dayfr = hour / 24.0 + minute / 1440.0 + second / 86400.0
@@ -473,7 +471,6 @@ def calculate_tidal_arguments(
 
 def tidal_frequency_and_phase(idood: np.ndarray) -> Tuple[float, float]:
     """Get frequency and phase of tidal constituent from Doodson number."""
-    global _tidal
     if not _tidal["init"]:
         calculate_tidal_arguments(2000, 1, 12, 0, 0)
 
@@ -488,7 +485,6 @@ def tidal_frequency_and_phase(idood: np.ndarray) -> Tuple[float, float]:
 
 def tidal_frequency_and_phase_batch(idood_array: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """Get frequency and phase for multiple constituents at once (vectorized)."""
-    global _tidal
     if not _tidal["init"]:
         calculate_tidal_arguments(2000, 1, 12, 0, 0)
 
