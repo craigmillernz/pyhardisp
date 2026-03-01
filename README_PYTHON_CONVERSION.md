@@ -360,8 +360,6 @@ For questions or issues with the Fortran original:
 - IERS Conventions Center: https://www.iers.org/
 - Email: gpetit@bipm.org or brian.luzum@usno.navy.mil
 
-For issues with this Python conversion, check the implementation in `hardisp_final.py`.
-
 ---
 
 *Python conversion completed: 2024*  
