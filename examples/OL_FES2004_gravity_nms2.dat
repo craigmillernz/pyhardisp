@@ -1,0 +1,68 @@
+To: c.miller@gns.cri.nz
+Subject: Ocean loading values results
+From: barre.loading@chalmers.se
+Content-type: text/plain
+
+
+$$ Ocean loading gravity+tilt
+$$
+$$ Calculated on barre.oso.chalmers.se using olfg/olmpp of H.-G. Scherneck
+$$
+$$ Greens function: mc00egbc
+$$ 
+$$ COLUMN ORDER:  M2  S2  N2  K2  K1  O1  P1  Q1  MF  MM SSA
+$$
+$$ ROW ORDER:
+$$ AMPLITUDES (nm/s2 / nrad / nrad )
+$$   RADIAL
+$$   TILT E
+$$   TILT N
+$$  PHASES (degrees)
+$$   RADIAL
+$$   TILT E
+$$   TILT N
+$$
+$$ Gravity is defined positive upwards and Tilt positive east and north.
+$$ NOTE: In the site records, the string SCF= specifies scale factors 
+$$ that have been applied with respect to milli-Gal and micro-radian.
+$$ The phase lag is relative to Greenwich and lags positive. The 
+$$ Gutenberg-Bullen Greens function is used. In the ocean tide model the 
+$$ deficit of tidal water mass has been corrected by subtracting a uniform 
+$$ layer of water with a certain phase lag globally.
+$$
+$$ Complete <model name> : No interpolation of ocean model was necessary
+$$ <model name>_PP       : Ocean model has been interpolated near the station 
+$$                         (PP = Post-Processing)
+$$ 
+$$ CMC:  NO   (corr.tide centre of mass)
+$$
+$$ Ocean tide model: FES2004
+$$
+$$ END HEADER
+$$
+  TGM01     
+$$ FES2004_PP ID: 2026-02-11 03:28:19 SCF=1.0E+04,1.0E+03,1.0E+03 
+$$ Computed by OLMPP by H G Scherneck, Onsala Space Observatory, 2026
+$$ TGM01,                     GRAV TILT  lon/lat:  175.6744  -39.1094 1530.893
+   45.96  10.98   6.94   3.07   6.00   1.57   1.98   0.91   1.58   0.73   0.41
+   99.00  14.68  21.49   4.16   2.67   2.80   0.86   1.03   0.02   0.00   0.01
+   38.30  11.46   8.92   3.17   7.47   4.96   2.46   0.97   1.06   0.63   0.52
+    53.3  137.3   22.4  135.1 -171.3   21.5 -170.7   42.9   -3.6   -8.3   -4.3
+   140.1  174.5  123.5  159.1  167.5   93.9  168.8   65.9  -47.8  -49.7   15.5
+  -109.9  -78.7 -133.4  -85.9   28.6   12.2   28.1   16.0   14.1    8.0    1.5
+$$
+  TGKB      
+$$ FES2004_PP ID: 2026-02-11 03:28:22 SCF=1.0E+04,1.0E+03,1.0E+03 
+$$ Computed by OLMPP by H G Scherneck, Onsala Space Observatory, 2026
+$$ TGKB,                      GRAV TILT  lon/lat:  175.6567  -39.0647  756.658
+   45.58  10.94   6.92   3.06   5.98   1.52   1.98   0.89   1.56   0.72   0.40
+   99.33  15.01  21.57   4.27   2.72   2.81   0.88   1.03   0.03   0.01   0.01
+   38.68  11.49   8.97   3.17   7.50   4.95   2.47   0.96   1.05   0.62   0.52
+    53.4  136.9   22.7  134.7 -170.9   21.2 -170.4   42.9   -3.7   -8.4   -4.4
+   139.8  173.3  123.3  158.1  168.0   93.8  169.2   65.6  -35.1  -18.3   11.8
+  -110.9  -78.8 -134.4  -86.0   28.3   12.0   27.8   15.6   14.2    8.1    1.5
+$$ END TABLE
+Token: 19918_20260210202940
+Errors:
+Warnings:
+Done: FES2004 ID:2026-02-11 02:28:22 02:28:22 (UTC)
