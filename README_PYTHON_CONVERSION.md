@@ -1,7 +1,4 @@
-# HARDISP - Python Module Documentation
-
-[![pipeline status](https://git.gns.cri.nz/gravity-processing/pyhardisp/badges/main/pipeline.svg)](https://git.gns.cri.nz/gravity-processing/pyhardisp/-/commits/main)
-[![coverage report](https://git.gns.cri.nz/gravity-processing/pyhardisp/badges/main/coverage.svg)](https://git.gns.cri.nz/gravity-processing/pyhardisp/-/commits/main)
+# PYHARDISP - Python Module Documentation
 
 ## Overview
 
