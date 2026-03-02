@@ -19,7 +19,7 @@ jobs:
       - name: Install build dependencies
         run: python -m pip install --upgrade pip setuptools wheel
       - name: Build wheels with cibuildwheel
-        uses: pypa/cibuildwheel@3.3.1
+        uses: pypa/cibuildwheel@3.3.0
         with:
           output-dir: dist
       - name: Upload wheels (Linux)
@@ -40,7 +40,7 @@ jobs:
       - name: Install build dependencies
         run: python -m pip install --upgrade pip setuptools wheel
       - name: Build wheels with cibuildwheel
-        uses: pypa/cibuildwheel@3.3.1
+        uses: pypa/cibuildwheel@3.3.0
         with:
           output-dir: dist
       - name: Upload wheels (Windows)
@@ -61,7 +61,7 @@ jobs:
       - name: Install build dependencies
         run: python -m pip install --upgrade pip setuptools wheel
       - name: Build wheels with cibuildwheel
-        uses: pypa/cibuildwheel@3.3.1
+        uses: pypa/cibuildwheel@3.3.0
         with:
           output-dir: dist
       - name: Upload wheels (macOS)
