@@ -1,3 +1,6 @@
+include README.md
 include README_PYTHON_CONVERSION.md
-include LICENSE.md
-include HARDISP_UPDATE_NOTES.md
+include LICENSE_IERS.txt
+include LICENCE
+recursive-include src *.F
+include ocean_loading_nm_s2.csv
