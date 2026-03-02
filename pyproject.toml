@@ -14,7 +14,7 @@ authors = [
     {name = "IERS Conventions"},
     {name = "Python Conversion - Craig Miller"}
 ]
-keywords = ["HARDISP", "ocean-loading", "tidal", "displacement", "geodesy", "IERS"]
+keywords = ["HARDISP", "pyhardisp", "ocean-loading", "tidal", "displacement", "geodesy", "IERS"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -43,8 +43,6 @@ dev = [
 [project.urls]
 Homepage = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
 Documentation = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
-Repository = "https://github.com/yourusername/hardisp"
-Issues = "https://github.com/yourusername/hardisp/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
