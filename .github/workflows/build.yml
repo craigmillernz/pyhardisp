@@ -10,15 +10,15 @@ on:
 
 jobs:
   build_wheels:
-    name: build wheels (${{ matrix.os }}, ${{ matrix.python-version }})
+    name: build wheels (${{ matrix.os }}, ${{ matrix.build }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        build: ['cp39', 'cp310', 'cp311', 'cp312', 'cp313']
     env:
-      CIBW_BUILD: cp${{ replace(matrix.python-version, '.', '') }}-*
+      CIBW_BUILD: ${{ matrix.build }}-*
       CIBW_BUILD_VERBOSITY: 1
 
     steps:
@@ -27,5 +27,5 @@ jobs:
         uses: pypa/cibuildwheel@v3.2.1
       - uses: actions/upload-artifact@v4
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ matrix.python-version }}
+          name: cibw-wheels-${{ matrix.os }}-${{ matrix.build }}
           path: ./wheelhouse/*.whl
