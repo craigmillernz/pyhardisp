@@ -21,5 +21,5 @@ jobs:
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pyhardisp-wheel
+          name: pyhardisp-wheel-${{ github.run_id }}
           path: dist/*.whl
