@@ -1,6 +1,6 @@
 # pyhardisp Python Module - Quick Start Guide
-[![Python package](https://github.com/craigmillernz/pyhardisp/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/craigmillernz/pyhardisp/actions/workflows/python-package.yml)
 [![codecov](https://codecov.io/gh/craigmillernz/pyhardisp/branch/main/graph/badge.svg)](https://codecov.io/gh/craigmillernz/pyhardisp)
+[![Build wheels](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml/badge.svg)](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml)
 
 ## 📋 What is HARDISP vs pyhardisp?
 
