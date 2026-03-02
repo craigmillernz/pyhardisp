@@ -31,4 +31,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pyhardisp-${{ steps.version.outputs.VERSION }}
-          path: ./wheel/
+          path: ./wheel/*.whl
