@@ -41,8 +41,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
-Documentation = "https://www.iers.org/IERS/EN/Science/Conventions/conventions.html"
+Homepage = "https://github.com/craigmillernz/pyhardisp"
+Repository = "https://github.com/craigmillernz/pyhardisp"
 
 [tool.setuptools.packages.find]
 where = ["."]
