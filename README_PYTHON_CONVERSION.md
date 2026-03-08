@@ -7,6 +7,7 @@ This document describes the Python conversion of the **HARDISP** (Harmonic Displ
 ## What is HARDISP?
 
 HARDISP is a scientific program developed by the International Earth Rotation and Reference Systems Service (IERS) for calculating tidal ocean loading effects at geodetic stations. Depending on the coefficients provided by the ocean loading provider, it computes either:
+
 - **Tidal displacements** (vertical, horizontal components) - when displacement coefficients are provided
 - **Tidal gravity effects** (gravity disturbances) - when gravity-type coefficients are provided
 
@@ -25,6 +26,7 @@ The program is part of the **IERS Conventions 2010** recommendations (Class 1 mo
 Given ocean loading coefficients in BLQ format (from the Bos-Scherneck loading service or equivalent providers), HARDISP computes a time series of tidal ocean loading effects in three components:
 
 **Output type depends on the ocean loading provider's coefficients:**
+
 - **Displacement coefficients**: Returns displacements
   - **dU**: Vertical (radial) displacement (meters)
   - **dS**: South (North-South) displacement (meters)
@@ -44,8 +46,8 @@ HARDISP processes the coefficients as-is, with no automatic conversions between 
 The Python conversion consists of:
 **core.py** - Main Python module with optimized implementation
 
-
 Original Fortran files (for reference):
+
 - `HARDISP.F` - Main program
 - `ADMINT.F` - Admittance interpolation
 - `RECURS.F` - Recursive harmonic evaluation
@@ -191,6 +193,7 @@ for day_val in range(1, 8):  # Process days 1-7
 ### Coordinate System
 
 The output displacements are in a **local geodetic frame** at the station:
+
 - **dU**: Radial (positive upward)
 - **dS**: South component (positive southward, i.e., negative latitude direction)
 - **dW**: West component (positive westward, i.e., negative longitude direction)
@@ -198,6 +201,7 @@ The output displacements are in a **local geodetic frame** at the station:
 ### Tidal Constituents Used
 
 The 11 input harmonics (from BLQ format) represent:
+
 1. M₂ - Principal lunar semi-diurnal (12.42 hours)
 2. S₂ - Principal solar semi-diurnal (12.00 hours)
 3. N₂ - Lunar elliptic semi-diurnal (12.66 hours)
@@ -252,7 +256,6 @@ The Python code was converted from these 13 Fortran files:
 12. `ETUTC.F` (284 lines) - ET-UTC calculation
 13. `TOYS.F` - (not in workspace but referenced)
 
-
 ## Function Name Mapping (Original Fortran → New Python)
 
 | Original Fortran | New Python Name | Purpose |
@@ -276,6 +279,7 @@ The Python code was converted from these 13 Fortran files:
 ## Features Implemented
 
 ### Complete Conversion
+
 - [x] All 342 tidal constituents support
 - [x] Recursive harmonic evaluation (efficient)
 - [x] Cubic spline interpolation
@@ -287,6 +291,7 @@ The Python code was converted from these 13 Fortran files:
 - [x] Delaunay argument calculations
 
 ### Additional Features
+
 - [x] Object-oriented design with HardispComputer class
 - [x] NumPy integration for high performance
 - [x] Comprehensive error handling
@@ -297,6 +302,7 @@ The Python code was converted from these 13 Fortran files:
 ## Core Components Converted
 
 ### 1. Date/Time Functions (7 functions)
+
 ```
 ✓ is_leap_year(year) - Check leap year
 ✓ days_before_month(year, month) - Days before month start
@@ -306,6 +312,7 @@ The Python code was converted from these 13 Fortran files:
 ```
 
 ### 2. Spline Interpolation (3 functions)
+
 ```
 ✓ cublic_spline(x, u) - Compute cubic spline coefficients
 ✓ spline_eval(y, x, u, s) - Evaluate spline at point
@@ -313,6 +320,7 @@ The Python code was converted from these 13 Fortran files:
 ```
 
 ### 3. Tidal Frequency Calculations (3 functions)
+
 ```
 ✓ calculate_tidal_arguments(year, day, h, m, s) - Initialize tidal calculations
 ✓ tidal_frequency_and_phase(doodson_number) - Get frequency and phase from Doodson number
@@ -320,33 +328,34 @@ The Python code was converted from these 13 Fortran files:
 ```
 
 ### 4. Harmonic Recursion (1 function)
+
 ```
 ✓ recursion(n, hc, nf, om) - Efficient recursive harmonic evaluation
 ```
 
 ### 5. Utility Functions (2 functions)
+
 ```
 ✓ pyshells(x) - Sort array with indices (Shell sort)
 ✓ fortran_int_divide(a, b) - Fortran-style integer division
 ```
 
 ### 6. Main Class: HardispComputer
+
 ```
 ✓ read_blq_format(amp, phase) - Load ocean loading coefficients
 ✓ compute_ocean_loading(...) - Main computation engine
 ```
 
-
-
 ## References
 
 1. Petit, G. and Luzum, B. (eds.), **IERS Conventions (2010)**, IERS Technical Note No. 36, BKG (2010)
-   - Available at: https://www.iers.org/IERS/EN/Publications/TechnicalNotes/tn36.php
+   - Available at: <https://www.iers.org/IERS/EN/Publications/TechnicalNotes/tn36.php>
 
 2. Agnew, D. C., et al., **HARDISP**: Original algorithm and implementation
 
 3. Scherneck, H.-G., and M. S. Bos, **Ocean Loading Service**: BLQ format specification
-   - Available at: http://www.oso.chalmers.se/~loading/
+   - Available at: <http://www.oso.chalmers.se/~loading/>
 
 4. Cartwright, D. E., and A. C. Edden, **Tides of the Planet Earth**, Geophys. J. R. Astron. Soc. 65, 615-630, 1981
 
@@ -357,10 +366,11 @@ This Python conversion maintains the same IERS Conventions Software License as t
 ## Contact
 
 For questions or issues with the Fortran original:
-- IERS Conventions Center: https://www.iers.org/
-- Email: gpetit@bipm.org or brian.luzum@usno.navy.mil
+
+- IERS Conventions Center: <https://www.iers.org/>
+- Email: <gpetit@bipm.org> or <brian.luzum@usno.navy.mil>
 
 ---
 
-*Python conversion completed: 2024*  
+*Python conversion completed: 2026*  
 *Original Fortran: IERS Conventions 2010*

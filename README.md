@@ -1,10 +1,12 @@
 # pyhardisp Python Module - Quick Start Guide
+
 [![codecov](https://codecov.io/gh/craigmillernz/pyhardisp/branch/main/graph/badge.svg)](https://codecov.io/gh/craigmillernz/pyhardisp)
 [![Build and Publish](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml/badge.svg)](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml)
 
 ## 📋 What is HARDISP vs pyhardisp?
 
 **HARDISP** computes ocean loading tidal effects for geodetic stations. It processes coefficients provided by ocean loading providers ([such as the Bos-Scherneck service](https://barre.oso.chalmers.se/loading/l.php)) to compute either:
+
 - **Displacements** (vertical and horizontal) when displacement-type coefficients are provided
 - **Gravity effects** (gravity (nm/s^2) and tilt(nrads)) when gravity-type coefficients are provided
 
@@ -12,33 +14,34 @@ It's part of the IERS Conventions 2010 recommended models for correcting space g
 
 **pyhardisp** is a python conversion of the original HARDISP fortran code from IERS (available in the src dir).
 
-
 ## Installation & Requirements
 
 ```bash
 # Requires:
-- Python 3.6+
-- NumPy (any recent version)
+- Python 3.8+
+- NumPy (> 1.19)
 
 # Installation:
-1. clone repo to your local machine
-2. pip install .
+1. pip install pyhardisp
+2. conda install -c conda-forge pyhardisp
 
 ```
 
 ## 📂 Files in This Directory
 
 ### Python Module
-- **`core.py`** 
+
+- **`core.py`**
   - Complete Python implementation of HARDISP
   - Vectorised routines for speed enhancement
 
 ### Documentation
+
 - **`README_PYTHON_CONVERSION.md`** - Complete user guide with examples
-- **`CONVERSION_SUMMARY.md`** - Technical overview and specifications
 - **`README.md`** - This file
 
 ### Original Fortran Code from IERS (Reference Only)
+
 - `HARDISP.F` - Main program
 - `ADMINT.F` - Admittance interpolation
 - `RECURS.F` - Recursive evaluation
@@ -52,16 +55,19 @@ It's part of the IERS Conventions 2010 recommended models for correcting space g
 ## 🚀 Quick Start (5 minutes)
 
 ### 1. Import the Module
+
 ```python
 import pyhardisp
 ```
 
 ### 2. Create a Computer
+
 ```python
 computer = pyhardisp.HardispComputer()
 ```
 
 ### 3. Load Your Data
+
 ```python
 # Ocean loading coefficients (from BLQ format)
 # 3 rows (vertical, east, north) × 11 columns (tidal constituents)
@@ -80,6 +86,7 @@ computer.read_blq_format(amplitudes, phases, units="nm/s2")
 ```
 
 ### 4. Compute Displacements
+
 ```python
 dz, ds, dw = computer.compute_ocean_loading(
     year=2018, month=4, day=5,
@@ -90,13 +97,15 @@ dz, ds, dw = computer.compute_ocean_loading(
 ```
 
 ### 5. Use the Results
+
 ```python
 # Results are in nm/s^2 for vertical or nrad for horizontal components
 for i in range(24):
     print(f"Hour {i}: Gravity={dz[i]:.6f} nm/s^2, South_tilt={ds[i]:.6f} nrad, West_tilt={dw[i]:.6f} nrad")
 ```
 
-## 📊 Example Output
+## Example Output
+
 ```
 Hour 0: Gravity=-46.218473 nm/s^2, South_tilt=31.320275 nrad, West_tilt=-62.009276 nrad
 Hour 1: Gravity=-46.166374 nm/s^2, South_tilt=31.286324 nrad, West_tilt=-62.111623 nrad
@@ -110,7 +119,7 @@ Hour 8: Gravity=-45.799106 nm/s^2, South_tilt=31.046809 nrad, West_tilt=-62.8244
 Hour 9: Gravity=-45.746273 nm/s^2, South_tilt=31.012328 nrad, West_tilt=-62.925713 nrad
 ```
 
-## 🔑 Key Functions Reference
+## Key Functions Reference
 
 | Function | Purpose |
 |----------|---------|
@@ -135,13 +144,7 @@ For detailed information, see:
    - Algorithm explanations
    - Validation results
 
-2. **`CONVERSION_SUMMARY.md`**
-   - Overview of conversion
-   - List of implemented features
-   - Quality metrics
-   - Performance information
-
-## 🔬 Technical Highlights
+## Technical Highlights
 
 - **342 tidal constituents** for precision of ~0.1%
 - **Recursive harmonic evaluation** for fast computation
@@ -158,7 +161,7 @@ Comparion with Quicktide Pro (QTP) and hardisp_x64.exe
 
 ![Conparison of ocean loading from Quicktide Pro, gtools (using hardisp_x64.exe) and pyhardisp](./ocean_loading_comparison.png)
 
-## 🎓 Understanding the Input Data
+## Understanding the Input Data
 
 The BLQ format contains 11 tidal constituents:
 
@@ -176,17 +179,18 @@ The BLQ format contains 11 tidal constituents:
 
 These are expanded to 342 constituents by the program for higher precision.
 
-## 🌍 Data Sources
+## Data Sources
 
 Ocean loading coefficients can be obtained from:
 
 **Bos & Scherneck Loading Service**
-- URL: http://https://barre.oso.chalmers.se/loading/l.php/
+
+- URL: <http://https://barre.oso.chalmers.se/loading/l.php/>
 - Format: BLQ (Binary Loading Queue)
 - Coverage: Global
 - Models: Various (CSR, FES, etc.)
 
-## 📚 References
+## References
 
 1. **IERS Conventions (2010)**
    - Petit, G. and Luzum, B. (eds.)
@@ -200,12 +204,12 @@ Ocean loading coefficients can be obtained from:
    - Cartwright & Edden (1981)
    - Doodson numbers and Darwin notation
 
-## 🔗 Related Tools
+## Related Tools
 
 - **SPOTL** - SPOTL ocean loading (original basis for HARDISP)
 - **IERS Conventions Software** - Complete IERS implementations
 
-## ❓ Common Questions
+## Common Questions
 
 **Q: What are BLQ files?**  
 A: Ocean loading coefficients in binary format from the Chalmers university loading service.
@@ -222,20 +226,12 @@ A: Yes, modify the IDT array in the HardispComputer class
 **Q: What about non-Gregorian calendars?**  
 A: The code assumes Gregorian calendar (since ~1582)
 
-## 📞 Support
+## Support
 
-- **For the original Fortran**: Contact IERS (gpetit@bipm.org)
-- **For this Python version**: Check the source code documentation
-- **For BLQ data**: Contact Hans-Georg Scherneck (scherneck@oso.chalmers.se)
+- **For the original Fortran**: Contact IERS (<gpetit@bipm.org>)
+- **For this Python version**: Make an [issue](https://github.com/craigmillernz/pyhardisp)
+- **For BLQ data**: Contact Hans-Georg Scherneck (<scherneck@oso.chalmers.se>)
 
-## 📜 License
+## License
 
 This Python version maintains the same IERS Conventions Software License as the original Fortran code. See copyright notices in the source files.
-
----
-
-**Happy computing! 🌐**
-
----
-
-*Based on: IERS Conventions 2010, Fortran HARDISP*  
