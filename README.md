@@ -2,6 +2,7 @@
 
 [![codecov](https://codecov.io/gh/craigmillernz/pyhardisp/branch/main/graph/badge.svg)](https://codecov.io/gh/craigmillernz/pyhardisp)
 [![Build and Publish](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml/badge.svg)](https://github.com/craigmillernz/pyhardisp/actions/workflows/build.yml)
+[![DOI](https://zenodo.org/badge/1170161431.svg)](https://doi.org/10.5281/zenodo.20189637)
 
 ## 📋 What is HARDISP vs pyhardisp?
 
